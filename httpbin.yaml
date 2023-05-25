@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  title: HTTPBin API
+  description: HTTPBin API for testing requests and responses
+  version: 1.0.0
+servers:
+  - url: https://httpbin.org
+    description: HTTPBin API server
+paths:
+  /get:
+    get:
+      summary: Get request endpoint
+      description: Return the request data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /post:
+    post:
+      summary: Post request endpoint
+      description: Return the request data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+components:
+  schemas:
+    Request:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john.doe@example.com
+        message:
+          type: string
+          example: Hello world
+    Response:
+      type: object
+      properties:
+        args:
+          type: object
+          properties:
+            name:
+              type: string
+          example:
+            name: John
+        headers:
+          type: object
+          properties:
+            Accept:
+              type: string
+              example: application/json
+            Host:
+              type: string
+              example: httpbin.org
+            User-Agent:
+              type: string
+          example:
+            Accept: application/json
+            Host: httpbin.org
+            User-Agent: insomnia/2021.5.0
+        origin:
+          type: string
+          example: 203.0.113.1
+        url:
+          type: string
+          example: https://httpbin.org/get?name=John
